@@ -15,7 +15,7 @@ begin
     $monitor("%4dns monitor: a=%d b=%d c=%d d=%d res=%d", $stime, a, b, c, d, res);
 end
 
-add add1(a, b, c, d, res);  //你的 module name 應為 add
+add4 add1(a, b, c, d, res);  //你的 module name 應為 add4
 /* 長得像是
 module name ( ports... );
 
