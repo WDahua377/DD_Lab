@@ -1,35 +1,17 @@
-module top(
-	clk,
-    sw,
-	CA,
-	CB,
-	CC,
-	CD,
-	CE,
-	CF,
-	CG,
-	AN0,
-	AN1,
-	AN2,
-	AN3,
-	AN4,
-	AN5,
-	AN6,
-	AN7
-    );
+module top(clk, sw, CA, CB, CC, CD, CE, CF,CG, AN0, AN1, AN2,
+AN3, AN4, AN5, AN6, AN7);
     
 input clk;
 input [11:0]sw;
-output CA,CB,CC,CD,CE,CF,CG;	// 7段顯示器的各段
-output AN0,AN1,AN2,AN3,AN4,AN5,AN6,AN7;		// 8位數8個數位的啟動信號
+output CA, CB, CC, CD, CE, CF, CG;	// 7段顯示器的各段
+output AN0, AN1, AN2, AN3, AN4, AN5, AN6, AN7;		// 8位數8個數位的啟動信號
 
 wire [5:0]num1;
 wire [5:0]num2;
 reg [2:0] state;
-reg [6:0] seg_number,seg_data,seg_number_mirror;
+reg [6:0] seg_number, seg_data, seg_number_mirror;
 reg [20:0] counter;
 reg [7:0] scan;		// 8位的暫存器，每位對應一個顯示器數位
-
 
 assign num1 = sw[11:6];
 assign num2 = sw[5:0];
@@ -38,7 +20,7 @@ wire [6:0]sum;
 add6 add(num1, num2, sum);
 
 
-assign {AN7,AN6,AN5,AN4,AN3,AN2,AN1,AN0} = scan;	// 將scan直接連接到顯示器的激活引腳（AN0到AN7）
+assign {AN7 ,AN6, AN5, AN4, AN3, AN2, AN1, AN0} = scan;	// 將scan直接連接到顯示器的激活引腳（AN0到AN7）
 
 always@(posedge clk) begin
 	seg_number <= 10;
@@ -108,10 +90,10 @@ always@(posedge clk) begin
 	case(seg_number_mirror)
 		16'd0:seg_data <= 7'b100_0000;
 		16'd1:seg_data <= 7'b100_1111;
-		16'd5:seg_data <= 7'b010_0100;
+		16'd2:seg_data <= 7'b001_0010;
 		16'd3:seg_data <= 7'b000_0110;
 		16'd4:seg_data <= 7'b000_1101;
-		16'd2:seg_data <= 7'b001_0010;
+		16'd5:seg_data <= 7'b010_0100;
 		16'd6:seg_data <= 7'b010_0000;
 		16'd7:seg_data <= 7'b100_1100;
 		16'd8:seg_data <= 7'b000_0000;
