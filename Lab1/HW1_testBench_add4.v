@@ -9,9 +9,10 @@ reg rst = 0;
 
 initial
 begin
-    //印出結果
+    // 印出結果
     // 被調用一次，但它會持續監控指定的變數
-    // $display是將雙引號中的參數清單內容列印出來，而$monitor是在參數清單改變的時候，將參數清單內容列印出來。
+    // $display是將該時間點雙引號中的參數清單內容列印出來，而$monitor是在參數清單改變的時候，將參數清單內容列印出來
+    // 有 $ 符號不會被合成為電路， 只是方便除錯
     $monitor("%4dns monitor: a=%d b=%d c=%d d=%d res=%d", $stime, a, b, c, d, res);
 end
 
@@ -62,6 +63,8 @@ begin
     end
 end
 
+// always如果沒有@，就是不需要滿足特定條件才執行，而是執行完一次後立刻執行下一次，一直重複執行
+// 一般在仿真中的tb檔中產生時鐘
 always #1 clk=~clk;
 always #1 rst=~rst;
 endmodule
