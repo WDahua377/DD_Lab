@@ -1,29 +1,11 @@
-module seven_seg_birthday(
-	clk,
-	rst,
-	mod,
-	CA,
-	CB,
-	CC,
-	CD,
-	CE,
-	CF,
-	CG,
-	AN0,
-	AN1,
-	AN2,
-	AN3,
-	AN4,
-	AN5,
-	AN6,
-	AN7,
-);
+module seven_seg_birthday(clk, rst, mod, CA, CB, CC, CD, CE, CF, CG,
+ AN0, AN1, AN2, AN3, AN4, AN5, AN6, AN7);
     
 input clk;
 input rst;
 input mod;  // 模式選擇信號，決定顯示內容
-output CA,CB,CC,CD,CE,CF,CG;
-output AN0,AN1,AN2,AN3,AN4,AN5,AN6,AN7;
+output CA, CB, CC, CD, CE, CF, CG;
+output AN0, AN1, AN2, AN3, AN4, AN5, AN6, AN7;
 
 reg clk_2hz;
 reg [31:0] cnt_2hz;
@@ -83,6 +65,7 @@ end
 
 //**CLK_DIV**//
 // cnt_2hz數到25000000後clk_2hz反轉，cnt_2hz重置
+// clk_2hz：25000000*2 = 50000000ns上沿一次
 always@ (posedge clk) begin
 		if (cnt_2hz >= 25000000) begin
 			cnt_2hz <= 32'b0;
@@ -100,10 +83,10 @@ always@(posedge clk_2hz) begin
 end
 
 // 只使用最右邊的顯示器顯示
-assign {AN7,AN6,AN5,AN4,AN3,AN2,AN1,AN0} = 8'b1111_1110;
+assign {AN0, AN1, AN2, AN3, AN4, AN5, AN6, AN7} = 8'b1111_1110;
 
 // 七段顯示器的各段
-assign {CG,CF,CE,CD,CC,CB,CA} = seg_data;
+assign {CG, CF, CE, CD, CC, CB, CA} = seg_data;
 
 //**BCD_to_7seg**//
 always@(posedge clk) begin  

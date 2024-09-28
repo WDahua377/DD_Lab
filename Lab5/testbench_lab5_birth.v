@@ -5,7 +5,7 @@ module tb_lab5;
 	reg clk;
 	reg rst;
 	reg clk_2hz;				
-	reg [20:0] cnt_2hz;		//1KHz counter
+	reg [20:0] cnt_2hz;
 	reg [2:0] cnt;
 	wire [6:0] seg_data;
 	wire [3:0] birth_num;
@@ -13,20 +13,19 @@ module tb_lab5;
 lab5_birth lab5(cnt, birth_num, seg_data);
 
 /*
-clk每10單位時間上沿觸發一次cnt_2hz加1，直到cn2_2hz加到12499時反轉，
-也就是每數到25000（12500*2）之後上沿觸發一次，此時cnt會加1，
-也就是每25000*10（每10單位時間會加1）個時間單位後cnt會加1
-每250000ns，cnt + 1
+clk每10ns上沿觸發一次，觸發後cnt_2hz加1，直到cn2_2hz加到12499時，
+clk_2hz反轉，也就是每125000ns（12500*10）clk_2hz反轉一次，
+cnt根據clk_2hz的上沿加1，也就是每250000ns（125000*2）加1，
 */
 
-always #5 clk = ~clk;	// 每5單位時間反轉clk，為10單位時間週期的時鐘訊號
+always #5 clk = ~clk;	// 每5ns反轉clk，是10ns為一週期的時鐘訊號
 
 always@ (posedge clk or negedge rst) begin
 	if (~rst) begin	// 根據rst重置cnt_2hz和clk_2hz
 		cnt_2hz <= 21'b0;
 		clk_2hz <= 1'b0;
 	end
-	else begin	// // 2Hz的時鐘，數到12499時重置cnt_2hz與反轉clk_2hz
+	else begin	// 數到12499時重置cnt_2hz與反轉clk_2hz
 		if (cnt_2hz >= 12499) begin
 			cnt_2hz <= 21'b0;
 			clk_2hz <= ~clk_2hz;
@@ -38,7 +37,7 @@ always@ (posedge clk or negedge rst) begin
 	end
 end
 
-always@ (posedge clk_2hz or negedge rst) begin	// 每次clk_2hz的上升沿（2hz/每0.5s）cnt+1
+always@ (posedge clk_2hz or negedge rst) begin	// 每次clk_2hz的上升沿，cnt+1
 	if (~rst)
 		cnt <= 3'b0;
 	else 
@@ -47,7 +46,7 @@ end
 
 	always @ (posedge clk)
 	begin
-		// 25萬個單位時間後展示資訊
+		// 250000ns後展示資訊
 		#250000	$display ($time, "  cnt = %d, ,birth = %d, output = %b", cnt, birth_num, seg_data);
 	end	
 
