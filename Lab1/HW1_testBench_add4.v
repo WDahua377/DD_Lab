@@ -31,40 +31,35 @@ endmodule
 //設定初始值
 initial
 begin
-    a=0;
-    b=0;
-    c=0;
-    d=0;
+    a = 0;
+    b = 0;
+    c = 0;
+    d = 0;
     clk = 0;
     rst = 0;
 end
 
 always@(posedge clk or negedge rst)
 begin
-    if(a <= 15)
-    begin
+    if(a <= 15) begin
         a <= a + 1;
     end
-    if(a == 15)
-    begin
+    if(a == 15) begin
         b <= b + 1;
     end
-    if(b == 15 && a == 15)
-    begin
+    if(b == 15 && a == 15) begin
         c <= c + 1;
     end
-    if(c == 15 && b == 15 && a == 15)
-    begin
+    if(c == 15 && b == 15 && a == 15) begin
         d <= d + 1;
     end
-    if(d == 15 && c == 15 && b == 15 && a == 14)
-    begin
+    if(d == 15 && c == 15 && b == 15 && a == 15) begin
         $finish;
     end
 end
 
 // always如果沒有@，就是不需要滿足特定條件才執行，而是執行完一次後立刻執行下一次，一直重複執行
 // 一般在仿真中的tb檔中產生時鐘
-always #1 clk=~clk;
-always #1 rst=~rst;
+always #1 clk = ~clk;
+always #1 rst = ~rst;
 endmodule
