@@ -40,7 +40,11 @@ begin
 		if(a == 15) begin
 			b <= b + 1;
 		end
+		if(a == 15 && b == 15) begin
+			$finish;
+		end
 	end
+
 	else begin
 		{correct_ov, correct_sum} = a + b;
 		if({ov, sum} == {correct_ov, correct_sum}) begin
@@ -51,6 +55,7 @@ begin
 			$display ("correct answer: ov = %d, sum = %d", ov, sum);
 			$display ("\n");
 		end
+
 		else begin
 			$display ("Test %d ", test_num);
 			$display ("///////////////////////");
@@ -64,7 +69,7 @@ begin
 		end
 	end
 end
-initial #1005 $finish;
+// initial #1005 $finish;
 endmodule
 
 

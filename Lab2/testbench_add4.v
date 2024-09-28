@@ -39,22 +39,25 @@ begin
 			a <= a + 1;
 			test_num <= test_num + 1;
 		end 
-		if(a ==15) begin
+		if(a == 15) begin
 			b <= b + 1;
 		end
-		if(a == 15 && b ==15) begin
+		if(a == 15 && b == 15) begin
 			c <= c + 1;
 		end
-		if(a == 15 && b ==15 && c == 15) begin
+		if(a == 15 && b == 15 && c == 15) begin
 			d <= d + 1;
-		
+		end
+		if(a == 15 && b == 15 && c == 15 && d == 15) begin
+			$finish;
 		end
 	end
+
 	else begin
 		{correct_ov, correct_sum} = a + b + c + d;
 		if({ov, sum} == {correct_ov, correct_sum}) begin
 			$display ("Test %d ", test_num);
-			$display ("CORRECT! No overflow.");
+			$display ("CORRECT!");
 			$display ("%d + %d + %d + %d = ?", a, b, c, d);
 			$display ("your answer: ov = %d, sum = %d", ov, sum);
 			$display ("correct answer: ov = %d, sum = %d", ov, sum);
@@ -64,7 +67,7 @@ begin
 			$display ("Test %d ", test_num);
 			$display ("///////////////////////");
 			$display ("//////// Fail! ////////");
-			$display ("/// Occur Overflow! ///");
+			$display ("// Uncorrect Answer! //");
 			$display ("///////////////////////");
 			$display ("%d + %d + %d + %d = ?", a, b, c, d);
 			$display ("your answer: ov = %d, sum = %d", ov, sum);
@@ -73,10 +76,9 @@ begin
 		end
 	end
 end
-//initial #10005 $finish;
 
 // 模擬運行到655355 ns後結束
-initial #655355 $finish;
+// initial #655355 $finish;
 endmodule
 
 
