@@ -11,6 +11,6 @@
 
 6. lab7：實作 16-bit Carry Look-ahead Adder(CLA) 與 64-bit CLA
 
-7. lab8：
+7. lab8：尚未上傳
 
-8. lab9：
+8. lab9：尚未上傳
